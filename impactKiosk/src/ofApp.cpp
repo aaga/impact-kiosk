@@ -2,13 +2,11 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    qNum = 0;
     std::string file = "questions.json";
     
     if (inputJSON.open(file)) {
-        ofLogNotice("ofApp::setup") << inputJSON.getRawString();
-        ofLogNotice("ofApp::setup") << "numAxes: " << inputJSON["numAxes"] << endl;
-        ofLogNotice("ofApp::setup") << "third axis label: " << inputJSON["axesLabels"][2] << endl;
-        ofLogNotice("ofApp::setup") << "second question text: " << inputJSON["questions"][1]["text"] << endl;
+        currentQuestionText = inputJSON["questions"][qNum]["text"].asString();
     } else {
         ofLogError("ofApp::setup") << "Failed to parse JSON" << endl;
     }
@@ -23,8 +21,14 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
-    ofDrawBitmapString(inputJSON["questions"][1]["text"], 10, 14);
+    ofDrawBitmapString(currentQuestionText, 10, 14);
 
+}
+
+void ofApp::handleYesNo(bool yes){
+    qNum++;
+    if (qNum == 2) qNum = 0;
+    currentQuestionText = inputJSON["questions"][qNum]["text"].asString();
 }
 
 //--------------------------------------------------------------
@@ -34,7 +38,14 @@ void ofApp::keyPressed(int key){
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+    if (key == 'y') {
+        // 'Y' pressed
+        handleYesNo(true);
+    }
+    if (key == 'n') {
+        // 'N' pressed
+        handleYesNo(false);
+    }
 }
 
 //--------------------------------------------------------------

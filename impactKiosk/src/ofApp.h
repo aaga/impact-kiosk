@@ -23,6 +23,13 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
     private:
+        void handleYesNo(bool yes);
+    
         ofxJSONElement inputJSON;
+    
+        string userName;
 		
+        int qNum;
+        string currentQuestionText;
+        std::vector<int> axesValues;
 };
