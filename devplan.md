@@ -18,7 +18,7 @@
 
 ## Development timeline
 ### In order of priority:
-1. [ ] Load JSON into standard C++ data structure, display question on screen
+1. [x] Load JSON into standard C++ data structure, display question on screen
 2. [ ] Add YES/NO buttons, cycle through questions
 3. [ ] Generate basic Radar Chart
 4. [ ] Capture image from webcam, apply basic filters

@@ -1,0 +1,63 @@
+{
+  "numAxes": 5,
+  "axesLabels": [
+    "Income Tax",
+    "Public Health",
+    "Entrepreneurship",
+    "Community Art",
+    "Immigration"
+  ],
+  "questions": [
+    {
+      "text": "Should we build more schools?",
+      "yes": [
+        5,
+        2,
+        3,
+        -3,
+        0
+      ],
+      "no": [
+        -3,
+        -5,
+        -1,
+        4,
+        0
+      ]
+    },
+    {
+      "text": "Should health care be a public good?",
+      "yes": [
+        5,
+        5,
+        2,
+        0,
+        0
+      ],
+      "no": [
+        -3,
+        -5,
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "text": "Should we have open borders?",
+      "yes": [
+        2,
+        -2,
+        4,
+        1,
+        5
+      ],
+      "no": [
+        -1,
+        2,
+        -1,
+        -1,
+        -1
+      ]
+    }
+  ]
+}
