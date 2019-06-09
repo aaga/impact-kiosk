@@ -20,7 +20,7 @@
 ### In order of priority:
 1. [x] Load JSON into standard C++ data structure, display question on screen
 2. [x] Add YES/NO buttons, cycle through questions
-3. [ ] Generate basic Radar Chart
+3. [x] Generate basic Radar Chart
 4. [ ] Capture image from webcam, apply basic filters
 5. [ ] Tie pieces together (answer question, update graph, update image, display new question)
 6. [ ] Add Welcome screen ("Type in your name..." etc.)
