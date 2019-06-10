@@ -13,7 +13,7 @@
   - ofxCV (image processing)
 - Optimized for and tested on Mac (but should compile on any OpenFrameworks platform)
 - Radar chart for data visualization
-  - use ![Chart Director](https://www.advsofteng.com/doc/cdcpp.htm) to generate png (on separate thread)
+  - use [Chart Director](https://www.advsofteng.com/doc/cdcpp.htm) to generate png (on separate thread)
 - JSON for loading static info (questions)
 
 ## Development timeline

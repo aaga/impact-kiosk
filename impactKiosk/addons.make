@@ -1,4 +1,3 @@
-ofxGui
+ofxAsync
+ofxBlur
 ofxJSON
-ofxOpenCv
-ofxThreadedImageLoader

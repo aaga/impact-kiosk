@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxJSON.h"
+#include "ofxBlur.h"
 
 class ofApp : public ofBaseApp{
 
@@ -21,11 +22,19 @@ class ofApp : public ofBaseApp{
         ofxJSONElement inputJSON;
     
         string userName;
-        ofImage graph;
+        ofImage graphData;
+        ofImage faceData;
+        ofTexture graph;
+        ofTexture face;
+        ofVideoGrabber cam;
+        ofxBlur blur;
 		
         int qNum;
+        bool ready;
         string currentQuestionText;
-        std::vector<string> axesLabels;
-        std::vector<double> axesValues;
+        vector<string> axesLabels;
+        vector<double> axesValues;
+    
         void makeGraph();
+        void makeFace(const vector<int>& delta);
 };
