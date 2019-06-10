@@ -13,6 +13,12 @@ void ofApp::setup(){
     newImageAvailable = false;
     std::string file = "questions.json";
 
+    userName = "Ashwin Agarwal";
+    if (ofDirectory::doesDirectoryExist(userName)) {
+        ofDirectory::removeDirectory(userName, true);
+    }
+    ofDirectory::createDirectory(userName);
+
     graphData.setUseTexture(false);
     faceData.setUseTexture(false);
     cam.setUseTexture(false);
@@ -63,16 +69,19 @@ void ofApp::draw(){
 
     if (face.isAllocated()) {
         blur.draw(ofRectangle(ofGetWidth() - WIDGET_WIDTH, WIDGET_HEIGHT, WIDGET_WIDTH, WIDGET_HEIGHT));
+
         if (newImageAvailable) {
             newImageAvailable = false;
             ofImage img;
+            // Get image from screen
             img.grabScreen(ofGetWidth() - WIDGET_WIDTH, WIDGET_HEIGHT, WIDGET_WIDTH, WIDGET_HEIGHT);
             img.setUseTexture(false);
-            ofxAsync::run([img]() mutable {
+            // Save image on new thread
+            ofxAsync::run([img, this]() mutable {
                 ofPixels pixels = img.getPixels();
                 pixels.swapRgb();
                 img.setFromPixels(pixels);
-                img.save("mypic.jpg");
+                img.save(userName + "/" + to_string(qNum + 1) + ".jpg");
             });
         }
     }
