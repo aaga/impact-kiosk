@@ -12,7 +12,6 @@ class ofApp : public ofBaseApp{
 		void draw();
 
 		void keyReleased(int key);
-		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
@@ -22,6 +21,8 @@ class ofApp : public ofBaseApp{
         ofxJSONElement inputJSON;
     
         string userName;
+        // OpenGL can only run on the main thread,
+        // so we need to separate pixel data from render
         ofImage graphData;
         ofImage faceData;
         ofTexture graph;
@@ -31,6 +32,7 @@ class ofApp : public ofBaseApp{
 		
         int qNum;
         bool ready;
+        bool newImageAvailable;
         string currentQuestionText;
         vector<string> axesLabels;
         vector<double> axesValues;

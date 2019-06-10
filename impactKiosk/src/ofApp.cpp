@@ -10,12 +10,14 @@ void ofApp::setup(){
     ofSetFrameRate(10);
     qNum = 0;
     ready = false;
+    newImageAvailable = false;
     std::string file = "questions.json";
 
     graphData.setUseTexture(false);
     faceData.setUseTexture(false);
     cam.setUseTexture(false);
     cam.initGrabber(640, 480);
+    blur.setup(cam.getWidth(), cam.getHeight(), 10, .2, 2);
 
     if (inputJSON.open(file)) {
         currentQuestionText = inputJSON["questions"][qNum]["text"].asString();
@@ -33,16 +35,22 @@ void ofApp::setup(){
 void ofApp::update(){
     ofxAsync::update();
     if (ready) {
+        // Thread is done
         ofxAsync::waitForAll();
 
         graph.loadData(graphData.getPixels());
         face.loadData(faceData.getPixels());
+
+        blur.begin();
+        face.draw(0,0);
+        blur.end();
 
         qNum++;
         if (qNum == 3) qNum = 0;
         currentQuestionText = inputJSON["questions"][qNum]["text"].asString();
 
         ready = false;
+        newImageAvailable = true;
     }
 }
 
@@ -54,7 +62,19 @@ void ofApp::draw(){
     }
 
     if (face.isAllocated()) {
-        face.draw(ofGetWidth() - WIDGET_WIDTH, WIDGET_HEIGHT, WIDGET_WIDTH, WIDGET_HEIGHT);
+        blur.draw(ofRectangle(ofGetWidth() - WIDGET_WIDTH, WIDGET_HEIGHT, WIDGET_WIDTH, WIDGET_HEIGHT));
+        if (newImageAvailable) {
+            newImageAvailable = false;
+            ofImage img;
+            img.grabScreen(ofGetWidth() - WIDGET_WIDTH, WIDGET_HEIGHT, WIDGET_WIDTH, WIDGET_HEIGHT);
+            img.setUseTexture(false);
+            ofxAsync::run([img]() mutable {
+                ofPixels pixels = img.getPixels();
+                pixels.swapRgb();
+                img.setFromPixels(pixels);
+                img.save("mypic.jpg");
+            });
+        }
     }
 }
 
@@ -69,7 +89,7 @@ void ofApp::handleYesNo(bool yes){
     }
 
     // Launch thread
-    ofxAsync::run([&delta, this]() {
+    ofxAsync::run([delta, this]() {
         makeGraph();
         makeFace(delta);
         ready = true; // signal that we're done
@@ -99,16 +119,29 @@ void ofApp::makeGraph(){
 
 //--------------------------------------------------------------
 void ofApp::makeFace(const vector<int>& delta){
+    float sum = 0.0;
+    int max = -5;
+    int min = 5;
+    for (int i = 0; i < delta.size(); i++) {
+        max = std::max(max, delta[i]);
+        min = std::min(min, delta[i]);
+        sum += delta[i];
+    }
+    float normalized_range = (max - min) / 5.0;
+    float average = sum / delta.size();
+
     cam.update();
     faceData.setFromPixels(cam.getPixels());
     for (int i = 0; i < faceData.getWidth(); i++) {
         for (int j = 0; j < faceData.getHeight(); j++) {
             ofColor pixel = faceData.getColor(i, j);
-            pixel.setSaturation(0.0);
+            pixel.setSaturation(pixel.getSaturation() * abs(average));
             faceData.setColor(i, j, pixel);
         }
     }
     faceData.update();
+
+    blur.setScale(normalized_range);
 }
 
 //--------------------------------------------------------------
@@ -121,11 +154,6 @@ void ofApp::keyReleased(int key){
         // 'N' pressed
         handleYesNo(false);
     }
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-
 }
 
 //--------------------------------------------------------------

@@ -29,3 +29,4 @@
 ### Stretch goals
 - Timeout and reset for new users
 - Fancy image shaders, live video feed
+- Animations and transition (make it less jumpy)
