@@ -27,7 +27,7 @@ Install these add-ons into your `of/addons` folder:
 - [ofxUIUtils](https://github.com/aaga/ofxUIUtils)
   - **Note:** This is my own fork of the add-on that removes the need for Cinder. I think it may be a bug in the original.
 
-### Xcode (ChartDirector)
+### Xcode (adding ChartDirector library to the app)
 I tried my best to package ChartDirector (used to produce the Radar Chart) using Xcode's build settings. However depending on your setup, you may have to redo some settings. In particular, if you use OpenFramework's `projectGenerator`, it will wipe most if not all of these settings.
 
 In short, if you're running into problems, look over this list:
