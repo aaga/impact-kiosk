@@ -1,6 +1,9 @@
 # Discover Your Impact - Kiosk
 An OpenFrameworks application to help passerbys learn about their views and their impact through a series of yes/no questions
 
+![login screen](./screenshots/login.png)
+![main screen](./screenshots/main_screen.png)
+
 ## Overview
 - The app first presents a login view, prompting for the user's name.
 - Questions and categories are loaded from `/data/questions.json`.
