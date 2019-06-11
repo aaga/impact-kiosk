@@ -23,7 +23,7 @@
 3. [x] Generate basic Radar Chart
 4. [x] Capture image from webcam, apply basic filters
 5. [x] Tie pieces together (answer question, update graph, update image, display new question)
-6. [ ] Add Welcome screen ("Type in your name..." etc.)
+6. [x] Add Welcome screen ("Type in your name..." etc.)
 7. [ ] Add Summary screen ("Thank you for participating. Here are your results...")
 
 ### Stretch goals
